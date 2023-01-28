@@ -1,15 +1,19 @@
-﻿/*Задача 54: Задайте двумерный массив. Напишите программу, которая упорядочит по убыванию 
-элементы каждой строки двумерного массива.*/
+﻿/*Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить 
+строку с наименьшей суммой элементов.*/
 
 internal class Program
 {
     private static void Main(string[] args)
     {
-        int[,] mas = new int[5, 5];
+        Console.Write("Введите количество строк: ");
+        int rows = int.Parse(Console.ReadLine());
+        Console.Write("Введите количество столбцов > строк: ");
+        int colm = int.Parse(Console.ReadLine());
+        int[,] mas = new int[rows, colm];
         for (int i = 0; i < mas.GetLength(0); i++)
         {
             for (int j = 0; j < mas.GetLength(1); j++)
-                mas[i, j] = new Random().Next(11, 99);
+                mas[i, j] = new Random().Next(1, 9);
         }
         for (int i = 0; i < mas.GetLength(0); i++)
         {
@@ -17,19 +21,30 @@ internal class Program
                 Console.Write("{0,5}", mas[i, j]);
             Console.WriteLine();
         }
-        Console.WriteLine("       ↑↑↑Неупорядоченный массив↑↑↑");
-        Console.WriteLine("↓↓↓Каждая строка упорядочена по убыванию↓↓↓");
-        var arr = mas.Cast<int>().OrderByDescending(a => a).ToArray(); //Сортирует элементы последовательности в порядке убывания
-        int c = 0;
+        Console.WriteLine("_______________________________");
+        int index = 0;
+        int minsum = 0;
         for (int i = 0; i < mas.GetLength(0); i++)
         {
+            int sum = 0;
             for (int j = 0; j < mas.GetLength(1); j++)
             {
-                mas[i, j] = arr[c];
-                Console.Write("{0,5}", mas[i, j]);
-                c++;
+            sum += mas[i, j]; 
             }
-            Console.WriteLine();
+            Console.WriteLine($"Сумма {i + 1} строки = {sum}");
+            if (i == 0) 
+            minsum = sum;
+            else if (sum < minsum)
+        {
+            minsum = sum;
+            index = i;
         }
     }
+    string line = string.Empty;
+    for (int j = 0; j < mas.GetLength(1); j++)
+    {
+        line += mas[index, j] + " ";
+    }
+    Console.WriteLine($"В {index+1} строке минимальная сумма элементов.");   
+}
 }
