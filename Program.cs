@@ -1,50 +1,91 @@
-﻿/*Задача 56: Задайте прямоугольный двумерный массив. Напишите программу, которая будет находить 
-строку с наименьшей суммой элементов.*/
+﻿/*Задача 58: Задайте две матрицы. Напишите программу, которая будет находить произведение 
+двух матриц.*/
+using System;
 
-internal class Program
+// класс с методами расширения
+static class MatrixExt
 {
-    private static void Main(string[] args)
+    // получение строк матрицы
+    public static int RowsCount(this int[,] matrix)
     {
-        Console.Write("Введите количество строк: ");
-        int rows = int.Parse(Console.ReadLine());
-        Console.Write("Введите количество столбцов > строк: ");
-        int colm = int.Parse(Console.ReadLine());
-        int[,] mas = new int[rows, colm];
-        for (int i = 0; i < mas.GetLength(0); i++)
+        return matrix.GetUpperBound(0) + 1;
+    }
+    // метод получение столбцов матрицы
+    public static int ColumnsCount(this int[,] matrix)
+    {
+        return matrix.GetUpperBound(1) + 1;
+    }   
+}
+class Program
+{
+    // метод получения матрицы из консоли
+    static int[,] GetMatrixFromConsole(string name)
+    {
+        Console.Write("Количество строк матрицы {0}:    ", name);
+        var n = int.Parse(Console.ReadLine());
+        Console.Write("Количество столбцов матрицы {0}: ", name);
+        var m = int.Parse(Console.ReadLine());
+        var matrix = new int[n, m];
+        for (var i = 0; i < n; i++)
         {
-            for (int j = 0; j < mas.GetLength(1); j++)
-                mas[i, j] = new Random().Next(1, 9);
+            for (var j = 0; j < m; j++)
+            {
+                for (int k = 0; k < matrix.GetLength(1); k++)
+                matrix[i, k] = new Random().Next(1, 9);
+            }
         }
-        for (int i = 0; i < mas.GetLength(0); i++)
+        return matrix;
+    }
+    // метод для печати матрицы в консоль
+    static void PrintMatrix(int[,] matrix)
+    {
+        for (var i = 0; i < matrix.RowsCount(); i++)
         {
-            for (int j = 0; j < mas.GetLength(1); j++)
-                Console.Write("{0,5}", mas[i, j]);
+            for (var j = 0; j < matrix.ColumnsCount(); j++)
+            {
+                Console.Write(matrix[i, j].ToString().PadLeft(4));
+            }
             Console.WriteLine();
         }
-        Console.WriteLine("_______________________________");
-        int index = 0;
-        int minsum = 0;
-        for (int i = 0; i < mas.GetLength(0); i++)
+    }
+    // метод умножения матриц
+    static int[,] MatrixMultiplication(int[,] MatrixI, int[,] MatrixII)
+    {       
+        if (MatrixI.ColumnsCount() != MatrixII.RowsCount())
         {
-            int sum = 0;
-            for (int j = 0; j < mas.GetLength(1); j++)
-            {
-            sum += mas[i, j]; 
-            }
-            Console.WriteLine($"Сумма {i + 1} строки = {sum}");
-            if (i == 0) 
-            minsum = sum;
-            else if (sum < minsum)
-        {
-            minsum = sum;
-            index = i;
+            throw new Exception("Количество столбцов матрицы 1 не равно количеству строк матрицы 2, произведение невыполнимо");
         }
+        var ResultMatrix = new int[MatrixI.RowsCount(), MatrixII.ColumnsCount()];
+
+        for (var i = 0; i < MatrixI.RowsCount(); i++)
+        {
+            for (var j = 0; j < MatrixII.ColumnsCount(); j++)
+            {
+                ResultMatrix[i, j] = 0;
+
+                for (var k = 0; k < MatrixI.ColumnsCount(); k++)
+                {
+                    ResultMatrix[i, j] += MatrixI[i, k] * MatrixII[k, j];
+                }
+            }
+        }
+        return ResultMatrix;
     }
-    string line = string.Empty;
-    for (int j = 0; j < mas.GetLength(1); j++)
-    {
-        line += mas[index, j] + " ";
+    static void Main(string[] args)
+    {    
+        Console.WriteLine("Умножение матриц");
+
+        var a = GetMatrixFromConsole("1");
+        var b = GetMatrixFromConsole("2");
+
+        Console.WriteLine("Матрица 1:");
+        PrintMatrix(a);
+
+        Console.WriteLine("Матрица 2:");
+        PrintMatrix(b);
+
+        var result = MatrixMultiplication(a, b);
+        Console.WriteLine("Произведение матриц:");
+        PrintMatrix(result);
     }
-    Console.WriteLine($"В {index+1} строке минимальная сумма элементов.");   
-}
 }
