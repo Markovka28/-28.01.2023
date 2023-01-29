@@ -1,25 +1,35 @@
-﻿/*Задача 64: Задайте значение N. Напишите программу, которая выведет 
-все натуральные числа в промежутке от N до 1. Выполнить с помощью рекурсии.*/
-using System;
-class RecExercise1
+﻿/*Задача 66 Задайте значения M и N. Напишите программу, которая найдёт сумму натуральных элементов 
+в промежутке от M до N.*/
+internal class Program
 {
-    static void Main()
+    private static void Main(string[] args)
     {
-	Console.Write("Введите число: ");
-	int N = Convert.ToInt32(Console.ReadLine());
-	Revers(N, 1);
-	Console.Write(" ");
-    }
-    static int Revers(int start, int end)
-    {
-	if (start < 1)
-	{
-	    return end;
-	}
-	Console.Write(" {0} ", start);
-		start--;
-	return Revers(start, end);
+    void SummNumbers(int a, int b)
+        {
+            if (a >= b)
+            {
+                SummNumbers(a - 1, b);
+                Console.WriteLine(a);
+            }
+        }
+        Console.Write("Введите число: ");
+        int n = Convert.ToInt32(Console.ReadLine());
+        Console.Write("Введите число: ");
+        int m = Convert.ToInt32(Console.ReadLine());
+        if ((n > m))
+        {
+            SummNumbers(n, m);
+             
+        }
+        if (m > n)
+        {
+            SummNumbers(m, n);
+        }
+        int sum = 0;
+        for (int i = n; i<=m ; i++)
+        {
+           sum +=i; 
+        }
+        Console.WriteLine($"Сумма чисел в диапазоне {sum}");
     }
 }
-
-
