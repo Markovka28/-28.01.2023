@@ -1,33 +1,25 @@
-﻿/*Задача 62. Напишите программу, которая заполнит спирально массив 4 на 4*/
-
-internal class Program
+﻿/*Задача 64: Задайте значение N. Напишите программу, которая выведет 
+все натуральные числа в промежутке от N до 1. Выполнить с помощью рекурсии.*/
+using System;
+class RecExercise1
 {
-    private static void Main(string[] args)
+    static void Main()
     {
-        int x = 4, y = 4;
-        int[,] matrix = new int[x, y];
-        int rows = 0, colm = 0, R = 1, L = 0, index = 0, element = y;
-        for (int i = 0; i < matrix.Length; i++)
-        {
-            matrix[colm, rows] = i + 1;
-            if (--element == 0)
-            {
-                element = y * (index % 2) + x * ((index + 1) % 2) - (index / 2 - 1) - 2;
-                int temp = R;
-                R = -L;
-                L = temp;
-                index++;
-            }
-            colm += R;
-            rows += L;
-        }
-        for (int i = 0; i < x; i++)
-        {
-            for (int j = 0; j < y; j++)
-            {
-                Console.Write(matrix[i, j] + " ");
-            }
-            Console.WriteLine();
-        }
+	Console.Write("Введите число: ");
+	int N = Convert.ToInt32(Console.ReadLine());
+	Revers(N, 1);
+	Console.Write(" ");
+    }
+    static int Revers(int start, int end)
+    {
+	if (start < 1)
+	{
+	    return end;
+	}
+	Console.Write(" {0} ", start);
+		start--;
+	return Revers(start, end);
     }
 }
+
+
