@@ -1,35 +1,24 @@
-﻿/*Задача 66 Задайте значения M и N. Напишите программу, которая найдёт сумму натуральных элементов 
-в промежутке от M до N.*/
-internal class Program
+﻿/*Задача 68: Напишите программу вычисления функции Аккермана с помощью рекурсии. */
+
+Console.Write("Введите первое число: ");
+int num = Convert.ToInt32(Console.ReadLine());
+Console.Write("Введите второе число: ");
+int arg = Convert.ToInt32(Console.ReadLine());
+AckermanFunction(num, arg);         
+int AckermanFunction(int num, int arg)
 {
-    private static void Main(string[] args)
-    {
-    void SummNumbers(int a, int b)
-        {
-            if (a >= b)
-            {
-                SummNumbers(a - 1, b);
-                Console.WriteLine(a);
-            }
-        }
-        Console.Write("Введите число: ");
-        int n = Convert.ToInt32(Console.ReadLine());
-        Console.Write("Введите число: ");
-        int m = Convert.ToInt32(Console.ReadLine());
-        if ((n > m))
-        {
-            SummNumbers(n, m);
-             
-        }
-        if (m > n)
-        {
-            SummNumbers(m, n);
-        }
-        int sum = 0;
-        for (int i = n; i<=m ; i++)
-        {
-           sum +=i; 
-        }
-        Console.WriteLine($"Сумма чисел в диапазоне {sum}");
-    }
+if (num == 0) 
+{
+    return arg + 1;
 }
+if (num != 0 && arg == 0) 
+{
+    return AckermanFunction(num - 1, 1);    
+}
+if (num > 0 && arg > 0) 
+{
+    return AckermanFunction(num - 1, AckermanFunction(num, arg - 1));
+}
+return AckermanFunction(num,arg);
+}
+Console.WriteLine($"Функция Аккермана({num},{arg}) = {(arg, num)}");
