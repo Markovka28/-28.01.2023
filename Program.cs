@@ -21,4 +21,4 @@ if (num > 0 && arg > 0)
 }
 return AckermanFunction(num,arg);
 }
-Console.WriteLine($"Функция Аккермана({num},{arg}) = {(arg, num)}");
+Console.WriteLine($"Функция Аккермана({num},{arg}) = {AckermanFunction(num, arg)}");
