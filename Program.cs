@@ -1,5 +1,5 @@
 ﻿/*Задача 60.Сформируйте трёхмерный массив из неповторяющихся двузначных чисел. Напишите 
-программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.
+программу, которая будет построчно выводить массив, добавляя индексы каждого элемента.*/
 
 Console.Write("Введите размеры массива через пробел: ");
 string[] num = Console.ReadLine().Split(" ", StringSplitOptions.RemoveEmptyEntries);
@@ -15,16 +15,17 @@ int[,,] GetArray(int[] index, int min, int max)
             for (int k = 0; k < result.GetLength(2); k++)
             {
                 int element = new Random().Next(min, max +1);
-                if (FindElement(result, element)) continue;
-                {
+                if (Findelement(result, element)) continue;
+                  {
                     result[i,j,k] = element;
                     k++;
-                }
+                  }
             }
         }
     }
     return result;
-int Findelement (int[,,] matrix, int el);
+}
+bool Findelement (int[,,] matrix, int el)
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
@@ -37,6 +38,7 @@ int Findelement (int[,,] matrix, int el);
         }
     }
     return false;
+    
 }
 void PrintArray(int[,,] matrix)
 {    
@@ -53,9 +55,10 @@ void PrintArray(int[,,] matrix)
         Console.WriteLine();
     }
 }
-} этот код разбирали с преподавателем но он не работает в чем там ошибка я не разобрался потратил 3 часа и не смог, если поможете будет превосходно код ниже использовал по примеру из интернета*/
 
-Console.WriteLine($"Введите размер массива X x Y x Z: ");
+/*этот код разбирали с преподавателем но он не работает в чем там ошибка я не разобрался потратил 3 часа и не смог, если поможете будет превосходно код ниже использовал по примеру из интернета*/
+
+/*Console.WriteLine($"Введите размер массива X x Y x Z: ");
 int a = Mass3D("Введите длину строки: ");
 int b = Mass3D("Введите высоту столбцов: ");
 int c = Mass3D("Введите глубину массива: ");
@@ -123,4 +126,4 @@ void GetArray(int[,,] array3D)
       }
     }
   }
-}
+}*/
